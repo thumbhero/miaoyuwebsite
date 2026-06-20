@@ -289,18 +289,13 @@ section { padding: 6rem 0; }
   align-items: start;
 }
 
-.about-placeholder {
+.about-photo {
   width: 100%;
   aspect-ratio: 3/4;
-  background: var(--cream-dim);
-  border: 1px solid var(--gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #999;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  font-style: italic;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid rgba(201,169,110,0.3);
+  display: block;
 }
 
 .about-text p {
@@ -324,6 +319,98 @@ section { padding: 6rem 0; }
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+}
+
+/* =============================================================
+   EDUCATION
+   ============================================================= */
+#education { background: var(--dark); }
+
+.edu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 860px;
+  margin: 0 auto;
+  border-left: 1px solid rgba(201,169,110,0.25);
+}
+
+.edu-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 2.5rem;
+  padding: 2.5rem 0 2.5rem 2.5rem;
+  position: relative;
+}
+
+/* Gold dot on the timeline */
+.edu-item::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 2.8rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.edu-item + .edu-item {
+  border-top: 1px solid rgba(201,169,110,0.1);
+}
+
+.edu-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-top: 0.2rem;
+}
+.edu-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+}
+.edu-location {
+  font-size: 0.78rem;
+  color: #666;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.edu-body h3 {
+  font-size: 1.15rem;
+  color: var(--cream);
+  margin-bottom: 0.3rem;
+}
+.edu-degree {
+  font-size: 0.88rem;
+  color: var(--gold-light);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.7rem;
+  font-style: italic;
+}
+.edu-desc {
+  font-size: 0.95rem;
+  color: var(--text-on-dark);
+  line-height: 1.7;
+  margin-bottom: 0.8rem;
+}
+.edu-link {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid rgba(201,169,110,0.3);
+  padding-bottom: 1px;
+  transition: border-color var(--transition), color var(--transition);
+}
+.edu-link:hover { color: var(--gold-light); border-color: var(--gold-light); }
+
+@media (max-width: 600px) {
+  .edu-item { grid-template-columns: 1fr; gap: 0.5rem; }
+  .edu-item::before { display: none; }
 }
 
 /* =============================================================
