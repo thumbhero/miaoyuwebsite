@@ -277,7 +277,7 @@ const translations = {
     award3_desc: '於2017及2018年獲選參與，並受邀加入校友合奏團。該學院由皮耶爾·布列茲創立，為全球最具競爭力的進階管弦樂訓練項目之一。',
 
     contact_title: '聯絡我們',
-    contact_desc:  '如需演出預約、樂團合作、聯演邀約或其他相關事宜，歡迎透過下方表單與我們聯繫。我們可以英文、德文或華語回覆。',
+    contact_desc:  '如需演出預約、樂團合作、聯演邀約或其他相關事宜，歡迎透過下方表單與我們聯繫。我們可以英文、德文、華語或日文回覆。',
     contact_lang_label: '語言：',
     form_name:               '姓名',
     form_email:              '電子郵件',
@@ -460,7 +460,12 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 const form     = document.getElementById('contactForm');
 const feedback = document.getElementById('formFeedback');
 
-form.addEventListener('submit', e => {
+/* MEMO: Replace FORMSPREE_ID_HERE with the 8-char ID from formspree.io/f/<ID>
+   Sign up at formspree.io → New Form → use hsc1119@gmail.com as the email.
+   The recipient email is stored on Formspree's servers, never in this file. */
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xykqwlza';
+
+form.addEventListener('submit', async e => {
   e.preventDefault();
   const t = translations[currentLang];
 
@@ -474,7 +479,6 @@ form.addEventListener('submit', e => {
     return;
   }
 
-  // Basic email validation
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(email)) {
     feedback.textContent = 'Please enter a valid email address.';
@@ -482,15 +486,34 @@ form.addEventListener('submit', e => {
     return;
   }
 
-  /* NOTE (MEMO): No backend wired yet.
-     To activate, add Formspree action attribute to the <form> tag:
-       action="https://formspree.io/f/YOUR_ID" method="POST"
-     And remove the e.preventDefault() call.
-     Alternatively, integrate Netlify Forms by adding data-netlify="true". */
+  const submitBtn = form.querySelector('[type="submit"]');
+  submitBtn.disabled = true;
 
-  feedback.textContent = t.form_success;
-  feedback.className   = 'form-feedback success';
-  form.reset();
+  try {
+    const res = await fetch(FORMSPREE_ENDPOINT, {
+      method:  'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name:         name,
+        email:        email,
+        organization: form.f_org.value.trim(),
+        subject:      form.f_subject.value,
+        message:      message
+      })
+    });
+    if (res.ok) {
+      feedback.textContent = t.form_success;
+      feedback.className   = 'form-feedback success';
+      form.reset();
+    } else {
+      throw new Error('server');
+    }
+  } catch (_) {
+    feedback.textContent = 'Something went wrong. Please try again later.';
+    feedback.className   = 'form-feedback error';
+  } finally {
+    submitBtn.disabled = false;
+  }
 });
 
 /* -------- 7. FOOTER YEAR -------- */
