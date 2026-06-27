@@ -330,20 +330,9 @@ section { padding: 6rem 0; }
    ============================================================= */
 #about { background: var(--cream); }
 
-.two-col {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 5rem;
-  align-items: start;
-}
-
-.about-photo {
-  width: 100%;
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  object-position: top;
-  border: 1px solid rgba(201,169,110,0.3);
-  display: block;
+.about-text {
+  max-width: 780px;
+  margin: 0 auto;
 }
 
 .about-text p {
@@ -756,7 +745,6 @@ footer {
   .hero-inner { grid-template-columns: 320px 1fr; }
   .hero-portrait { max-width: 300px; }
   .hero-text-col { padding-left: 2.5rem; }
-  .two-col { grid-template-columns: 280px 1fr; gap: 3rem; }
   .venues-grid { grid-template-columns: repeat(2, 1fr); }
   .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
 }
@@ -796,8 +784,6 @@ footer {
   .hero-portrait { max-width: 260px; aspect-ratio: 1/1; object-position: center top; }
   .hero-text-col { padding-left: 0; align-items: center; }
   .hero-venues { align-items: center; }
-  .two-col { grid-template-columns: 1fr; }
-  .about-image-wrap { max-width: 300px; margin: 0 auto; }
   .ensembles-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .highlight-item { flex-direction: column; gap: 0.3rem; }
